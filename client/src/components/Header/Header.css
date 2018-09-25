@@ -1,0 +1,9 @@
+.header {
+    height: 70px;
+    font-family: 'Sriracha', cursive;
+    color: black;
+    background: grey;
+    text-align: center;
+    margin-bottom: 4px;
+    padding-top: 10px;
+}
