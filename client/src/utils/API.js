@@ -24,7 +24,7 @@ export default {
       return axios.get(queryUrl);
     },
     getArticles: function() {
-      return axios.get("/api/articles");
+      return axios.get("/api/articles")
     },
     saveArticle: function (articleData) {
       console.log(articleData.articleData._id);

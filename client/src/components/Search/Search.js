@@ -14,31 +14,30 @@ class Search extends Component {
         saved: []
     }
 
-    // componentDidMount() {
-    //   this.getSavedArticles()
-    // }
+    componentDidMount() {
+      this.getSavedArticles()
+    }
 
     handleSaveButton = (event, id) => {
       event.preventDefault();
       console.log(event);
-      console.log(id)
       const articleData = this.state.articles.find(article=> article._id === id)
-      console.log(articleData);
       API.saveArticle({articleData})
       .then((results) => {
-        const filteredResults = this.state.saved.filter(article => article._id !== id)
-        this.setState({saved: filteredResults})
-        console.log("HI")
+        const filteredResults = this.state.articles.filter(article => article._id !== id)
+        console.log(filteredResults)
+        this.setState({articles: filteredResults, saved: articleData})
       })
     };
     getSavedArticles = () => {
       API.getArticles().then(results => {
+        console.log(results)
         this.setState({saved: results})
       })
     };
+    
     handleFormSubmit = event => {
       event.preventDefault();
-      console.log("HANDLE FORM SUBMIT WORKS");
       if (this.state.article && this.state.startYear && this.state.endYear) {
         API.searchNYT( this.state.article, this.state.startYear, this.state.endYear)
           .then( res => {this.setState({articles:res.data.response.docs})
@@ -118,10 +117,31 @@ class Search extends Component {
       </div>
       <div className="col-sm-1"></div>
     </div>
-    <Saved />
+    <div className="row">
+      <div className="col-sm-1"></div>
+          <div className="col-sm-10">
+          <br />
+          <div className="card">
+          <div className="card-header">
+            <strong><i className="fa fa-table"></i> Saved</strong>
+          </div>
+            {/* {this.state.saved.map(savedArticle => (
+              <Saved 
+                url={savedArticle.url}
+                title={savedArticle.title}
+                date={savedArticle.date}
+                key={savedArticle._id}
+                _id={savedArticle._id}
+                // handleDeleteButton={this.handleDeleteButton}
+              />
+            ))} */}
+          </div>
+          </div>
+      <div className="col-sm-1"></div>
     </div>
-       )
-    }
+  </div>
+    )
+  }
 };
 
 export default Search;

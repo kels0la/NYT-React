@@ -3,7 +3,7 @@ const db = require("../models"); //new
 
 module.exports = function (app) {
 
-    app.get('api/articles', (req, res) => {
+    app.get('/api/articles', (req, res) => {
         // db.Article.find().then(data => res.json(data));
         db.Article.find()
             .then(function (articles) {
@@ -14,21 +14,19 @@ module.exports = function (app) {
                 // If an error occurs, send the error back to the client
                 res.json(err);
             });
-    })
+    });
     
     app.post('/api/articles', (req, res) => {
-    console.log("trying to add saved article to database");
     console.log(req.body);
     const articleData = req.body
     article = new db.Article(articleData)
         db.Article.create(article)
         .then(result => {
             res.json(result)
-            console.log(result)
         }
         )
         .catch((error) => {
             return res.json(error);
         });
-    })
+    });
 }
