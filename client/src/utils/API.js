@@ -27,8 +27,8 @@ export default {
       return axios.get("/api/articles");
     },
     saveArticle: function (articleData) {
-      console.log(articleData.articleData.headline.main)
-      return axios.post("/api/articles/"+articleData.articleData._id, {
+      console.log(articleData.articleData._id);
+      return axios.post("/api/articles", {
         title: articleData.articleData.headline.main, 
         url: articleData.articleData.web_url, 
         date: articleData.articleData.pub_date
@@ -39,6 +39,5 @@ export default {
       .catch(function (error) {
         console.log(error);
       });
-    
     } 
 };

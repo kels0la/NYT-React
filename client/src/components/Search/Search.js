@@ -25,8 +25,10 @@ class Search extends Component {
       const articleData = this.state.articles.find(article=> article._id === id)
       console.log(articleData);
       API.saveArticle({articleData})
-      .then(() => {
-        this.getSavedArticles();
+      .then((results) => {
+        const filteredResults = this.state.saved.filter(article => article._id !== id)
+        this.setState({saved: filteredResults})
+        console.log("HI")
       })
     };
     getSavedArticles = () => {
@@ -50,7 +52,8 @@ class Search extends Component {
         this.setState({
           [name]: value
         });
-      };
+    };
+
     render() {
       return (
     <div>
