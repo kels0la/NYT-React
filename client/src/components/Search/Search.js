@@ -14,20 +14,26 @@ class Search extends Component {
         saved: []
     }
 
-    
     // componentDidMount() {
     //   this.getSavedArticles()
     // }
-getSavedAarticles = () => {
-  API.getArticles()
-  .then(res => {
-    this.setState({ saved: res.data});
-  });
-}
 
-    handleSaveButton = event => {
-
-    }
+    handleSaveButton = (event, id) => {
+      event.preventDefault();
+      console.log(event);
+      console.log(id)
+      const articleData = this.state.articles.find(article=> article._id === id)
+      console.log(articleData);
+      API.saveArticle({articleData})
+      .then(() => {
+        this.getSavedArticles();
+      })
+    };
+    getSavedArticles = () => {
+      API.getArticles().then(results => {
+        this.setState({saved: results})
+      })
+    };
     handleFormSubmit = event => {
       event.preventDefault();
       console.log("HANDLE FORM SUBMIT WORKS");
@@ -39,10 +45,6 @@ getSavedAarticles = () => {
           .catch(err => console.log(err));
       }
     };
-    
-    dieExtraStuffDie() {
-
-    }
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -106,6 +108,7 @@ getSavedAarticles = () => {
                 date={article.pub_date}
                 key={article._id}
                 _id={article._id}
+                handleSaveButton={this.handleSaveButton}
               />
             ))}
         </div>
