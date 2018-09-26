@@ -1,24 +1,13 @@
 import React from "react";
 import "./Results.css"
 
-const Results = () => (
-   <div className="row">
-   <div className="col-sm-1"></div>
-      <div className="col-sm-10">
-        <br />
-        <div className="card">
+const Results = props => (
 
-          <div className="card-header">
-            <strong>
-              <i className="fa fa-table"></i> Results</strong>
-          </div>
-
-          <div className="card-body" id="article-section">
-          </div>
-        </div>
-      </div>
-      <div className="col-sm-1"></div>
-    </div>
+    <div className="card-body border">
+      <a href={props.url}><h6 id={props._id}>{props.title}</h6></a>
+      <p>{props.date}</p>
+      <p><button className="btn btn-success save" onClick={() => props.handleSaveButton(props._id)}>Save</button></p>
+    </div> 
 );
 
 export default Results;
