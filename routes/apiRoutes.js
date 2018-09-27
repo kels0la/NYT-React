@@ -23,9 +23,16 @@ module.exports = function (app) {
         db.Article.create(article)
         .then(result => {
             res.json(result)
-        }
-        )
-        .catch((error) => {
+        }).catch((error) => {
+            return res.json(error);
+        });
+    });
+
+    app.delete("/api/articles/:id", (req, res) => {
+        db.Article.deleteOne({ _id: req.params.id })
+        .then(result => {
+            res.json(result)
+        }).catch((error) => {
             return res.json(error);
         });
     });

@@ -39,5 +39,11 @@ export default {
       .catch(function (error) {
         console.log(error);
       });
-    } 
+    },
+    deleteArticle: function (id) {
+      console.log(id);
+      return axios.delete("/api/articles/" + id);
+
+    }
+
 };

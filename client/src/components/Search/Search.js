@@ -26,13 +26,14 @@ class Search extends Component {
       .then((results) => {
         const filteredResults = this.state.articles.filter(article => article._id !== id)
         console.log(filteredResults)
-        this.setState({articles: filteredResults, saved: articleData})
+        this.setState({articles: filteredResults})
       })
     };
+
     getSavedArticles = () => {
       API.getArticles().then(results => {
-        console.log(results)
-        this.setState({saved: results})
+        console.log(results.data)
+        this.setState({saved: results.data})
       })
     };
     
@@ -46,11 +47,22 @@ class Search extends Component {
           .catch(err => console.log(err));
       }
     };
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
           [name]: value
         });
+    };
+
+    handleDeleteButton = (event, id) => {
+      event.preventDefault();
+      console.log(id)
+      API.deleteArticle(id)
+      .then((results) => {
+        console.log(results);
+        this.getSavedArticles();
+      })
     };
 
     render() {
@@ -125,16 +137,16 @@ class Search extends Component {
           <div className="card-header">
             <strong><i className="fa fa-table"></i> Saved</strong>
           </div>
-            {/* {this.state.saved.map(savedArticle => (
+            {this.state.saved.map(savedArticle => (
               <Saved 
                 url={savedArticle.url}
                 title={savedArticle.title}
                 date={savedArticle.date}
                 key={savedArticle._id}
                 _id={savedArticle._id}
-                // handleDeleteButton={this.handleDeleteButton}
+                handleDeleteButton={this.handleDeleteButton}
               />
-            ))} */}
+            ))}
           </div>
           </div>
       <div className="col-sm-1"></div>

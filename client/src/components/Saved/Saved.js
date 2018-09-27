@@ -6,7 +6,7 @@ const Saved = props => {
   return (
     <div className="card-body border">
       <a href={props.url}><h6 id={props._id}>{props.title}</h6></a>
-      <p>{date}</p><span className="pull-right"><button>Delete</button></span>
+      <p>{date}</p><span className="pull-right"><button className="btn btn-danger" onClick={(event) => props.handleDeleteButton(event, props._id)}>Delete</button></span>
     </div> 
   )
 }; 
